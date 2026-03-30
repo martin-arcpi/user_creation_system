@@ -21,7 +21,10 @@ for user, password in users.items():
     print(f"The user: {user}    password:   {password}")
 
 
-with sqlite3.connect("db.sqlite3") as conn:
-    pass
+with sqlite3.connect("db.sqlite3") as connection:
+    command = "INSERT INTO users VALUES(?, ?)"
+    for user, password in users.items():
+        user_credentials = [user, password]
+        connection.execute(command, tuple(user_credentials))
 
-
+    connection.commit()
